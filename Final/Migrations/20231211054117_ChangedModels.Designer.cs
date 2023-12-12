@@ -3,6 +3,7 @@ using Final.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final.Migrations
 {
     [DbContext(typeof(BasicDataContext))]
-    partial class BasicDataContextModelSnapshot : ModelSnapshot
+    [Migration("20231211054117_ChangedModels")]
+    partial class ChangedModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,7 +205,7 @@ namespace Final.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Contries");
 
                     b.HasData(
                         new
@@ -260,21 +262,17 @@ namespace Final.Migrations
 
             modelBuilder.Entity("Final.Models.Contact", b =>
                 {
-                    b.HasOne("Final.Models.Company", "Company")
+                    b.HasOne("Final.Models.Company", null)
                         .WithMany("Contacts")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Final.Models.Country", "Country")
+                    b.HasOne("Final.Models.Country", null)
                         .WithMany("Contacts")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("Final.Models.Company", b =>
